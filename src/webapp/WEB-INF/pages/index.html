@@ -7,9 +7,30 @@
 </head>
 <body>
 <div>
-    <th:block th:each="msg : ${messages}">
-        <h1 th:text="${msg}"></h1>
-    </th:block>
+    <tr th:each="u: ${users}">
+        <td>
+            <div style="display: flex;">
+                <form th:method="post" th:action="@{/user/update/{id}(id=${u.id})}" th:object="${user}">
+                    <label>Name</label>
+                    <input type="text" name="name" th:value="${u.name}">
+                    <label>Surname</label>
+                    <input type="text"  name="surname" th:value="${u.surname}">
+                    <input type="submit" value="update">
+                </form>
+                <form th:method="post" th:action="@{/user/delete/{id}(id=${u.id})}">
+                    <input type="submit" value="delete">
+                </form>
+            </div>
+        </td>
+      </tr>
+
+    <form th:method="post" th:action="@{/user/add}" th:object="${user}">
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name">
+        <label for="surname">Surname</label>
+        <input type="text" th:field="*{surname}" id="surname">
+        <input type="submit" value="add">
+    </form>
 </div>
 </body>
 </html>
